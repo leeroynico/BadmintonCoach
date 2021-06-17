@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-const Chronometer = () => {
+const StopWatch = () => {
   return (
     <View>
       <Text>Mon chrono </Text>
@@ -9,4 +9,4 @@ const Chronometer = () => {
   );
 };
 
-export default Chronometer;
+export default StopWatch;

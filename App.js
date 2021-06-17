@@ -1,13 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import Chronometer from "./components/Chronometer";
+import StopWatch from "./components/StopWatch";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <Chronometer />
+      <StopWatch />
       <StatusBar style="auto" />
     </View>
   );
