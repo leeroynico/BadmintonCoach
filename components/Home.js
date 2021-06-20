@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
 import StopWatch from "./StopWatch";
 import * as Speech from "expo-speech";
+import { useFonts } from "expo-font";
 
 export default function Home() {
+  const [loaded] = useFonts({
+    Pangolin: require("../assets/fonts/Pangolin-Regular.ttf"),
+  });
+
   const [icon, setIcon] = useState("play");
   const [playState, setPlayState] = useState(false);
+
   const speak = () => {
     const thingToSay = "Attention, préparez vous";
     Speech.speak(thingToSay, {
@@ -30,9 +36,13 @@ export default function Home() {
     //   console.log(error);
     // }
   };
+  if (!loaded) {
+    return null;
+  }
 
   return (
     <View>
+      <Text style={styles.Title}>Shadow Coach</Text>
       <Button
         icon={icon}
         mode="contained"
@@ -47,8 +57,16 @@ export default function Home() {
         source={{
           uri: "https://res.cloudinary.com/leeroynico/image/upload/v1624220380/half_court_czh7ni.png",
         }}
-        style={{ width: 350, height: 350 }}
+        style={{ width: 350, height: 350, marginTop: 10 }}
       />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  Title: {
+    fontFamily: "Pangolin",
+    fontSize: 30,
+    marginLeft: "20%",
+  },
+});
