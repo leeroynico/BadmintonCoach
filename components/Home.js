@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
 import StopWatch from "./StopWatch";
-import * as Speech from "expo-speech";
 import { useFonts } from "expo-font";
+import CircleAnimated from "./CircleAnimated";
+import { getRandom } from "./Logical";
+import { Speak } from "./speech";
 
-export default function Home() {
+export default function Home(props) {
   const [loaded] = useFonts({
     Pangolin: require("../assets/fonts/Pangolin-Regular.ttf"),
   });
@@ -13,29 +15,6 @@ export default function Home() {
   const [icon, setIcon] = useState("play");
   const [playState, setPlayState] = useState(false);
 
-  const speak = () => {
-    const thingToSay = "Attention, préparez vous";
-    Speech.speak(thingToSay, {
-      voice: "com.apple.ttsbundle.Amelie-compact",
-      language: "fr-FR",
-      pitch: 1.3,
-      rate: 1,
-    });
-    //for get all voices available
-    // try {
-    //   let voicesList = Speech.getAvailableVoicesAsync();
-    //   voicesList.then((value) => {
-
-    //     console.log(
-    //       value.filter((x) => {
-    //         return x.language.includes("fr");
-    //       })
-    //     );
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    // }
-  };
   if (!loaded) {
     return null;
   }
@@ -47,12 +26,16 @@ export default function Home() {
         icon={icon}
         mode="contained"
         onPress={() => {
-          speak();
+          Speak(getRandom(1, 7).toString());
+          setTimeout(function () {
+            alert("yo");
+          }, 2000);
           icon === "play" ? setIcon("pause") : setIcon("play");
         }}
       >
         {icon}
       </Button>
+      {/* <CircleAnimated /> */}
       <Image
         source={{
           uri: "https://res.cloudinary.com/leeroynico/image/upload/v1624220380/half_court_czh7ni.png",
