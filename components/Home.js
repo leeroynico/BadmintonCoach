@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Animated } from "react-native";
 import { Button, ProgressBar, Colors } from "react-native-paper";
 import { useFonts } from "expo-font";
 //import CircleAnimated from "./CircleAnimated";
@@ -7,6 +7,7 @@ import { getRandom } from "./Logical";
 import { Speak } from "./speech";
 import { useInterval } from "./UseInterval";
 import ModalEdit from "./modal/ModalEdit";
+//import { CircularSlider } from "react-native-elements-universe";
 
 export default function Home(props) {
   const [loaded] = useFonts({
@@ -18,7 +19,7 @@ export default function Home(props) {
   const [seconds, setSeconds] = useState(60);
   const [secondsMax, setSecondsMax] = useState(60);
   const [randomNumber, setRandomNumber] = useState("");
-  const [delai, setDelai] = useState(2500);
+  const [delai, setDelai] = useState(3000);
   const [activeModal, setActiveModal] = useState(false);
 
   const train = (number) => {
@@ -57,7 +58,13 @@ export default function Home(props) {
 
   return (
     <>
-      <ModalEdit active={activeModal} />
+      <ModalEdit
+        active={activeModal}
+        setSeconds={setSeconds}
+        seconds={seconds}
+        delai={delai}
+        setDelai={setDelai}
+      />
       <View style={styles.container}>
         <Text style={styles.title}>Shadow Coach</Text>
         <Button
@@ -67,7 +74,7 @@ export default function Home(props) {
           onPress={() => {
             seconds === "fin de la session" ? setSeconds(10) : "";
             if (start === "" || start === "pause") {
-              train(getRandom(1, 7).toString());
+              Speak("c'est parti ");
               setStart("run");
               setIcon("pause");
             } else if (start === "run") {
@@ -98,16 +105,17 @@ export default function Home(props) {
           mode="contained"
           color="red"
           //todo : fix modal opening
+          //todo : desintal react paper et change tous éléments
           onPress={() => setActiveModal(!activeModal)}
         >
           EDIT TIME
         </Button>
 
-        <ProgressBar
+        {/* <ProgressBar
           style={styles.progress}
           progress={seconds / secondsMax}
           color={Colors.red800}
-        />
+        /> */}
         {/* <CircleAnimated /> */}
         {/* <Image
           source={{
@@ -125,13 +133,14 @@ export default function Home(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 50,
+    marginTop: 200,
     justifyContent: "flex-start",
     alignItems: "center",
   },
   title: {
     fontFamily: "Pangolin",
     fontSize: 30,
+    color: "white",
   },
   button: {
     height: 40,
