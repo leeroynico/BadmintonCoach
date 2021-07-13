@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
-import StopWatch from "./StopWatch";
+import ProgressBar from "react-native-animated-progress";
+//import StopWatch from "./StopWatch";
 import { useFonts } from "expo-font";
 //import CircleAnimated from "./CircleAnimated";
 import { getRandom } from "./Logical";
@@ -74,17 +75,25 @@ export default function Home(props) {
       >
         {icon}
       </Button>
-
-      {/* <Button
-        icon="stop"
+      <ProgressBar
+        progress={typeof seconds === "number" ? seconds * 10 : 100}
+        height={10}
+        backgroundColor="#4a0072"
+        animated={true}
+        trackColor="#595959"
+      />
+      <Button
+        style={styles.Button}
+        icon="load"
         mode="contained"
         color="orange"
         onPress={() => {
-          clearTimeout(chrono);
+          setStart("");
+          setSeconds(10);
         }}
       >
-        STOP
-      </Button> */}
+        RESET
+      </Button>
       {/* <CircleAnimated /> */}
       <Image
         source={{
@@ -106,5 +115,6 @@ const styles = StyleSheet.create({
   },
   Button: {
     height: 40,
+    marginBottom: 10,
   },
 });
