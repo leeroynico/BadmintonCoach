@@ -22,24 +22,8 @@ export default function ModalEdit(props) {
           <Pressable onPress={() => setModalVisible(!modalVisible)}>
             <View style={styles.modalView}>
               <Text h4> Réglages</Text>
-
-              {/* <Text style={styles.texte}> temps du shadow</Text>
-              <View style={{ marginTop: -8 }}>
-                <Slider
-                  value={props.seconds}
-                  maximumValue={140}
-                  minimumValue={40}
-                  step={10}
-                  onValueChange={(value) => props.setSeconds(value)}
-                  trackStyle={{ height: 6, width: 175 }}
-                  thumbStyle={{
-                    height: 15,
-                    width: 13,
-                    backgroundColor: "blue",
-                  }}
-                />
-              </View> 
-              <Text style={styles.texte}> {props.seconds}</Text>*/}
+              <Text style={styles.texte}> temps du shadow</Text>
+              <Text style={styles.texte}> {props.seconds}</Text>
               <RNPickerSelect
                 useNativeAndroidPickerStyle={false}
                 onValueChange={(value) => props.setSeconds(value)}
@@ -68,10 +52,33 @@ export default function ModalEdit(props) {
                   value: "",
                 }}
               />
-              <Button
-                icon={<Icon name="arrow-right" size={15} color="white" />}
-                onPress={() => setModalVisible(!modalVisible)}
-              />
+              <View style={styles.containerButton}>
+                <Button
+                  icon={
+                    <Icon
+                      type="ionicon"
+                      name="close-outline"
+                      size={20}
+                      color="white"
+                    />
+                  }
+                  buttonStyle={{
+                    backgroundColor: "#db3a34",
+                  }}
+                  onPress={() => setModalVisible(!modalVisible)}
+                />
+                <Button
+                  icon={
+                    <Icon
+                      type="ionicon"
+                      name="checkmark-done-outline"
+                      size={20}
+                      color="white"
+                    />
+                  }
+                  onPress={() => setModalVisible(!modalVisible)}
+                />
+              </View>
             </View>
           </Pressable>
         </View>
@@ -84,6 +91,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  containerButton: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   modalView: {
     margin: 20,
